@@ -1,0 +1,42 @@
+server:
+  port: 8061
+
+spring:
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8090/realms/FromPast
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/past-local
+    username: postgres
+    password: postgres
+
+  liquibase:
+    change-log: classpath:db/migration/changelog.xml
+    default-schema: frompast
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    oauth:
+      client-id: local-client
+      client-secret: 9dmctNbvPCSUiBRcjK3bnCrvnFKfN3lT
+
+minio:
+  enabled: true
+  url: http://localhost:9010
+  access-key: admin
+  secret-key: password
+  bucket: from-past
+  url-expiry-hours: 1
