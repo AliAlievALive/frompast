@@ -40,6 +40,10 @@ public class File {
     @Column(name = "url")
     String fileUrl;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "message_id")
+    Message message;
+
     @NotNull
     @Column(nullable = false)
     LocalDateTime saveDate;
