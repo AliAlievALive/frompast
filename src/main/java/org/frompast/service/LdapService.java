@@ -61,7 +61,11 @@ public class LdapService {
 
     @NotNull
     private String buildFilter() {
-        return "(&(objectClass=user)(|" + properties.getGroups().stream().collect(Collectors.joining(")(memberOf=", "(memberOf=", ")")) + "))";
+        String p = properties.getGroups() != null
+                ? properties.getGroups().stream()
+                .collect(Collectors.joining(")(memberOf=", "(memberOf=", ")"))
+                : "";
+        return "(&(objectClass=user)(|" + p + "))";
     }
 
 }
