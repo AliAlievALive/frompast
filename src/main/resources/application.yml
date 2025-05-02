@@ -26,6 +26,21 @@ spring:
         format_sql: true
     show-sql: true
 
+  ldap:
+    base: dc=ctr-hub,dc=local
+    username: cn=admin,dc=ctr-hub,dc=local
+    password: password
+    urls: ldap://localhost:5390
+    template:
+      ignore-partial-result-exception: true
+    base-environment:
+      java:
+        naming:
+          referral: follow
+          ldap:
+            attributes:
+              binary: ObjectGUID
+
 springdoc:
   swagger-ui:
     enabled: true
@@ -40,3 +55,6 @@ minio:
   secret-key: password
   bucket: from-past
   url-expiry-hours: 1
+
+ldap:
+  groups: CN=nova_plant_users,OU=app_users_group,OU=Groups,dc=ctr-hub,dc=local; CN=rvd_nova_quality_users,OU=app_users_group,OU=Groups,dc=ctr-hub,dc=local
