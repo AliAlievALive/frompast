@@ -122,4 +122,5 @@ public class LdapEntity {
     @Attribute(name = "Enabled")
     String enabled;
 
+    String password;
 }
