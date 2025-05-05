@@ -57,4 +57,5 @@ minio:
   url-expiry-hours: 1
 
 ldap:
+  userBase: OU=Users,DC=ctr-hub,DC=local
   groups: CN=nova_plant_users,OU=app_users_group,OU=Groups,dc=ctr-hub,dc=local; CN=rvd_nova_quality_users,OU=app_users_group,OU=Groups,dc=ctr-hub,dc=local

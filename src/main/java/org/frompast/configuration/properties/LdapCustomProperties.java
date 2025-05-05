@@ -18,4 +18,5 @@ public class LdapCustomProperties {
     @Delimiter(";")
     List<String> groups;
 
+    String userBase;
 }
