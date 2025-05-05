@@ -65,4 +65,8 @@ public class UserService {
 
         repository.saveAll(notExistedUsers);
     }
+
+    public User getById(Long userId) {
+        return repository.findById(userId).orElseThrow();
+    }
 }

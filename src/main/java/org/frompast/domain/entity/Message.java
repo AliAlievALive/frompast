@@ -2,12 +2,15 @@ package org.frompast.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "user_msg")
@@ -23,4 +26,9 @@ public class Message {
     @Builder.Default
     @OneToMany(mappedBy = "message", orphanRemoval = true)
     Set<File> files = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    ScheduleType scheduleType;
+
+    Integer waitingTime;
 }
