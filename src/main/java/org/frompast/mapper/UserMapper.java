@@ -3,13 +3,14 @@ package org.frompast.mapper;
 import org.frompast.domain.entity.LdapEntity;
 import org.frompast.domain.entity.User;
 import org.frompast.utils.GuidHelper;
+import org.frompast.web.dto.user.UserReadDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper
+@Mapper(uses = FileMapper.class)
 public interface UserMapper {
 
     default User fromLdapEntity(LdapEntity source) {
@@ -17,6 +18,10 @@ public interface UserMapper {
         String guid = GuidHelper.convertByteArrayToGuidString(source.getGuid());
         return fromLdapEntity(source, distinguishedName, guid);
     }
+
+    UserReadDto toReadDto(User user);
+
+    List<UserReadDto> toReadDtoList(List<User> users);
 
     @Mapping(target = "distinguishedName", source = "distinguishedName")
     @Mapping(target = "guid", source = "guid")

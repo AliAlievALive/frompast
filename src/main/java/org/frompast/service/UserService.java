@@ -7,17 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.frompast.domain.entity.LdapEntity;
 import org.frompast.domain.entity.User;
 import org.frompast.domain.repository.UserRepository;
+import org.frompast.exceptions.CustomException;
 import org.frompast.mapper.UserMapper;
 import org.frompast.utils.GuidHelper;
+import org.frompast.utils.PageParam;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static org.frompast.utils.GuidHelper.convertByteArrayToGuidString;
+import static org.frompast.utils.PaginationUtil.getPageable;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
@@ -68,5 +71,30 @@ public class UserService {
 
     public User getById(Long userId) {
         return repository.findById(userId).orElseThrow();
+    }
+
+    public User getByGuid(UUID id) {
+        return findByGuid(id).orElseThrow(() -> new CustomException(User.class, id));
+    }
+
+    public Optional<User> findByGuid(UUID id) {
+        return repository.findByGuid(String.valueOf(id));
+    }
+
+    public Page<User> getPage(PageParam pageParam) {
+        return repository.findAll(getPageable(pageParam));
+    }
+
+    public List<User> findAllByGuids(Collection<String> guids) {
+        return repository.findAllByGuidIsIn(guids);
+    }
+
+    public List<User> getByDisplayNameIn(Collection<String> displayNames) {
+        return repository.findAllByDisplayNameIn(displayNames);
+    }
+
+    public User getBySamAccountName(String samAccountName) {
+        return repository.findBySamAccountNameIgnoreCase(samAccountName)
+                .orElseThrow(() -> new CustomException("%s not found by samAccountName: %s".formatted(User.class.getSimpleName(), samAccountName)));
     }
 }
