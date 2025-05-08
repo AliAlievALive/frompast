@@ -21,8 +21,7 @@ public interface UserMapper {
 
     UserReadDto toReadDto(User user);
 
-    List<UserReadDto> toReadDtoList(List<User> users);
-
+    @Mapping(target = "clients", ignore = true)
     @Mapping(target = "distinguishedName", source = "distinguishedName")
     @Mapping(target = "guid", source = "guid")
     @Mapping(target = "syncDate", expression = "java(java.time.LocalDateTime.now())")
@@ -39,6 +38,7 @@ public interface UserMapper {
         updateFromLdapEntity(updated, updating, distinguishedName, guid);
     }
 
+    @Mapping(target = "clients", ignore = true)
     @Mapping(target = "distinguishedName", source = "distinguishedName")
     @Mapping(target = "guid", source = "guid")
     @Mapping(target = "id", ignore = true)

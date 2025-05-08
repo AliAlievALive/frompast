@@ -100,6 +100,12 @@ public class User extends People {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     Set<File> files = new HashSet<>();
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    Set<Client> clients = new HashSet<>();
+
 }
 
 
