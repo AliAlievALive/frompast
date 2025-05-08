@@ -7,5 +7,6 @@
     <include file="/db/migration/1_0_0_init_db.sql"/>
     <include file="/db/migration/1_0_1_create_tables.sql"/>
     <include file="/db/migration/1_0_2_alter_message_add_live_column.sql"/>
+    <include file="/db/migration/1_0_3_create_client_table.sql"/>
 
 </databaseChangeLog>

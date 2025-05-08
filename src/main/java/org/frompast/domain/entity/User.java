@@ -29,8 +29,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "users")
-public class User {
-
+public class User extends People {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -47,12 +46,6 @@ public class User {
 
     String displayName;
 
-    String fullName;
-
-    String firstname;
-
-    String lastname;
-
     String otherName;
 
     String initials;
@@ -60,18 +53,6 @@ public class User {
     String telephoneNumber;
 
     String homePhone;
-
-    String mobilePhone;
-
-    String country;
-
-    String state;
-
-    String city;
-
-    String street;
-
-    String postalCode;
 
     String company;
 
@@ -88,8 +69,6 @@ public class User {
     String employeeId;
 
     String employeeNumber;
-
-    String mail;
 
     String mailNickname;
 
