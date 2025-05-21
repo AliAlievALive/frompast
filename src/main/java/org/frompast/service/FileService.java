@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
@@ -75,4 +77,7 @@ public class FileService {
                         .formatted(File.class.getSimpleName(), fileId, userId)));
     }
 
+    public Stream<File> getByIdIn(Collection<Long> fileIds) {
+        return repository.findAllById(fileIds).stream();
+    }
 }
