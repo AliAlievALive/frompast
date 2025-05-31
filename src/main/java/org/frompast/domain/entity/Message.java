@@ -31,4 +31,12 @@ public class Message {
     ScheduleType scheduleType;
 
     Integer waitingTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    User owner;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    Client client;
 }

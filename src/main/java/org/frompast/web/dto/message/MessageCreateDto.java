@@ -39,4 +39,9 @@ public class MessageCreateDto {
             title = "количество ожидания до отправки",
             description = "Должно быть заполнено при добавлении нового сообщения")
     Integer waitingTime;
+
+    @Schema(name = "clientId",
+            title = "идентификатор клиента, кому отправляется сообщение",
+            description = "Должно быть заполнено при добавлении нового сообщения")
+    Long clientId;
 }

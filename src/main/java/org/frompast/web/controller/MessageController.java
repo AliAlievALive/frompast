@@ -6,16 +6,22 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.frompast.domain.entity.Client;
 import org.frompast.domain.entity.Message;
+import org.frompast.domain.entity.User;
 import org.frompast.domain.entity.group.Create;
 import org.frompast.mapper.MessageMapper;
+import org.frompast.service.ClientService;
 import org.frompast.service.MessageService;
+import org.frompast.service.UserService;
 import org.frompast.web.dto.message.MessageCreateDto;
 import org.frompast.web.dto.message.MessageReadDto;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.frompast.utils.JwtUtil.getUserGuid;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
@@ -25,7 +31,9 @@ import java.util.List;
 public class MessageController {
 
     MessageService service;
+    UserService userService;
     MessageMapper mapper;
+    private final ClientService clientService;
 
     @Operation(summary = "Get by id")
     @GetMapping("/{id}")
@@ -37,7 +45,10 @@ public class MessageController {
     @Operation(summary = "Create file")
     @PostMapping
     public MessageReadDto create(@RequestBody @Validated({Create.class, Default.class}) MessageCreateDto dto) {
-        Message entity = service.create(mapper.fromCreateDto(dto));
+        User user = userService.getByGuid(getUserGuid());
+        Client client = clientService.getById(dto.getClientId());
+        Message entity = service.create(mapper.fromCreateDto(dto, user));
+        entity.setClient(client);
         return mapper.toReadDto(entity);
     }
 

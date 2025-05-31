@@ -2,6 +2,13 @@ server:
   port: 8061
 
 spring:
+  mail:
+    #    TODO
+    host: Mail-EXCH02.frompast.local
+    port: 587
+    username: no_reply@frompast.local
+    password: frompastPass
+    sender: no_reply@frompast.net
 
   security:
     oauth2:

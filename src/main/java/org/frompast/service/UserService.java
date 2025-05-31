@@ -102,4 +102,8 @@ public class UserService {
     public void updateUserLoginTime(UUID id) {
         repository.updateLastLoginByGuid(LocalDateTime.now(), String.valueOf(id));
     }
+
+    public List<User> findUsersLastLoggedBetween(LocalDateTime from, LocalDateTime to) {
+        return repository.findByLastLoginBetween(from, to);
+    }
 }

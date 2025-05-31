@@ -10,5 +10,8 @@
     <include file="/db/migration/1_0_3_create_client_table.sql"/>
     <include file="/db/migration/1_0_4_add_fk.sql"/>
     <include file="/db/migration/1_0_5_add_user_auth_date.sql"/>
+    <include file="/db/migration/1_0_6_add_client_to_message.sql"/>
+    <include file="/db/migration/1_0_7_add_user_to_message.sql"/>
+    <include file="/db/migration/1_0_8_add_client_to_message.sql"/>
 
 </databaseChangeLog>

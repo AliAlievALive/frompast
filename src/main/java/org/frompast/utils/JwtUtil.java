@@ -4,11 +4,13 @@ import lombok.experimental.UtilityClass;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
+import java.util.UUID;
+
 @UtilityClass
 public class JwtUtil {
 
-    public static String getUserGuid() {
+    public static UUID getUserGuid() {
         JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getTokenAttributes().get("user_guid").toString();
+        return (UUID) authentication.getTokenAttributes().get("user_guid");
     }
 }
