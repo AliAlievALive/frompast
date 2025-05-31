@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface ClientMapper {
 
+    @Mapping(target = "messages", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(source = "fullName", target = "fullName")
     @Mapping(source = "firstname", target = "firstname")

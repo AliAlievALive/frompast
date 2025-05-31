@@ -27,4 +27,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("update User u set u.lastLogin = ?1 where u.guid = ?2")
     void updateLastLoginByGuid(LocalDateTime lastLogin, String id);
+
+    List<User> findByLastLoginBetween(LocalDateTime from, LocalDateTime to);
 }

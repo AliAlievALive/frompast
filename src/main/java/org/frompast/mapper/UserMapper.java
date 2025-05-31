@@ -21,6 +21,7 @@ public interface UserMapper {
 
     UserReadDto toReadDto(User user);
 
+    @Mapping(target = "lastLogin", ignore = true)
     @Mapping(target = "clients", ignore = true)
     @Mapping(target = "distinguishedName", source = "distinguishedName")
     @Mapping(target = "guid", source = "guid")
@@ -38,6 +39,7 @@ public interface UserMapper {
         updateFromLdapEntity(updated, updating, distinguishedName, guid);
     }
 
+    @Mapping(target = "lastLogin", ignore = true)
     @Mapping(target = "clients", ignore = true)
     @Mapping(target = "distinguishedName", source = "distinguishedName")
     @Mapping(target = "guid", source = "guid")
