@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static java.util.function.Function.identity;
@@ -96,5 +97,9 @@ public class UserService {
     public User getBySamAccountName(String samAccountName) {
         return repository.findBySamAccountNameIgnoreCase(samAccountName)
                 .orElseThrow(() -> new CustomException("%s not found by samAccountName: %s".formatted(User.class.getSimpleName(), samAccountName)));
+    }
+
+    public void updateUserLoginTime(UUID id) {
+        repository.updateLastLoginByGuid(LocalDateTime.now(), String.valueOf(id));
     }
 }
