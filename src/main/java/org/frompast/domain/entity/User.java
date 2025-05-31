@@ -84,6 +84,9 @@ public class User extends People {
 
     String enabled;
 
+    @Column(name = "last_auth")
+    LocalDateTime lastLogin;
+
     @NotNull
     @Column(nullable = false)
     @Builder.Default

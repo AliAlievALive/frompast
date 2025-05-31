@@ -69,4 +69,10 @@ public class UserController {
         List<User> users = service.getByDisplayNameIn(displayNames);
         return users.stream().map(mapper::toReadDto).toList();
     }
+
+    @Operation(summary = "update user login time")
+    @PostMapping("/guid")
+    public void updateUserLoginTimeByUuid(@RequestParam("guid") UUID id) {
+        service.updateUserLoginTime(id);
+    }
 }
