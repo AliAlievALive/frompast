@@ -12,14 +12,20 @@ import org.frompast.domain.entity.group.Update;
 import org.frompast.domain.repository.FileRepository;
 import org.frompast.exceptions.CustomException;
 import org.frompast.mapper.FileMapper;
+import org.frompast.service.minio.MinioProperties;
+import org.frompast.service.minio.MinioService;
 import org.frompast.web.dto.file.FileCreateDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import static org.frompast.utils.JwtUtil.getUserGuid;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
@@ -30,6 +36,8 @@ public class FileService {
     FileRepository repository;
     FileMapper mapper;
     UserService userService;
+    MinioService minioService;
+    MinioProperties minioProperties;
 
     public File getById(Long id) {
         return findById(id).orElseThrow(() -> new CustomException("file not found"));
@@ -79,5 +87,9 @@ public class FileService {
 
     public Stream<File> getByIdIn(Collection<Long> fileIds) {
         return repository.findAllById(fileIds).stream();
+    }
+
+    public String attachFile(MultipartFile file) throws IOException {
+        return minioService.uploadFileAndGetFileUrl(getUserGuid(), file.getInputStream(), file.getOriginalFilename());
     }
 }

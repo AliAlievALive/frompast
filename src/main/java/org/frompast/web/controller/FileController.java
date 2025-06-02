@@ -15,6 +15,11 @@ import org.frompast.web.dto.file.FileCreateDto;
 import org.frompast.web.dto.file.FileReadDto;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
@@ -61,4 +66,9 @@ public class FileController {
         return mapper.toReadDto(entity);
     }
 
+    @Operation(summary = "Save file to Minio")
+    @PostMapping(value = "/file", consumes = MULTIPART_FORM_DATA_VALUE)
+    public String attachSupportDoc(@RequestPart MultipartFile file) throws IOException {
+        return service.attachFile(file);
+    }
 }
