@@ -11,6 +11,6 @@ public class JwtUtil {
 
     public static UUID getUserGuid() {
         JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        return (UUID) authentication.getTokenAttributes().get("user_guid");
+        return UUID.fromString((String) authentication.getTokenAttributes().get("user_guid"));
     }
 }
